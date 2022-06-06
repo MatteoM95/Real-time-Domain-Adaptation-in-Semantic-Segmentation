@@ -8,7 +8,7 @@ Starting code for the student belonging to the project "Real-time domain adaptat
 
 
 ## Dataset  
-- Download [CamVid dataset] (https://drive.google.com/file/d/1CKtkLRVU4tGbqLSyFEtJMoZV2ZZ2KDeA/view?usp=sharing)
+- Download [CamVid dataset](https://drive.google.com/file/d/1CKtkLRVU4tGbqLSyFEtJMoZV2ZZ2KDeA/view?usp=sharing)
 - Download [IDDA dataset](https://drive.google.com/file/d/1GiUjXp1YBvnJjAf1un07hdHFUrchARa0/view?usp=sharing)
 - Note: classes_info.json file needs to be modified by changing the first couple of brakets '[]' to {} and deleting the last comma.
 
@@ -25,4 +25,4 @@ python test.py --
 
 
 # Project Paper :
-
+Final [paper](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Report_Real%20time%20Domain%20Adaptation%20in%20Semantic%20Segmentation.pdf) of the project
