@@ -3,7 +3,7 @@ This project is part of The Machine Learning & Deep Learing cource (MLDL 2021 ) 
 ## BiseNet
 Starting code for the student belonging to the project "Real-time domain adaptation in semantic segmentation" <br>
 # Implementation Details :
-- The Semantic Segmentation Model is based on <b>BiSeNet<b>, pytorch 0.4.1 and python 3.6
+- The Semantic Segmentation Model is based on **BiSeNet** , pytorch 0.4.1 and python 3.6
 - All the experiments were run on Google Colab Tesla P100 15 GB GPUs
 
 
