@@ -1,12 +1,12 @@
-# fast-neural-style :city_sunrise: :rocket:
+# Fast-neural-style :city_sunrise: :rocket:
 This repository contains a pytorch implementation of an algorithm for artistic style transfer. The algorithm can be used to mix the content of an image with the style of another image. For example, here is a photograph of a door arch rendered in the style of a stained glass painting.
 
-The model uses the method described in [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155) along with [Instance Normalization](https://arxiv.org/pdf/1607.08022.pdf). The saved-models for examples shown in the README can be downloaded from [here](https://www.dropbox.com/s/lrvwfehqdcxoza8/saved_models.zip?dl=0).
+The original model uses the method described in [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155) along with [Instance Normalization](https://arxiv.org/pdf/1607.08022.pdf). 
 
 <p align="center">
-    <img src="images/style-images/mosaic.jpg" height="200px">
-    <img src="images/content-images/amber.jpg" height="200px">
-    <img src="images/output-images/amber-mosaic.jpg" height="440px">
+    <img src="images/style-images/idda.jpg" height="200px">
+    <img src="images/content-images/camvid5.jpg" height="200px">
+    <img src="images/output-images/camvid5.jpg" height="220px">
 </p>
 
 ## Requirements
@@ -29,7 +29,7 @@ python neural_style/neural_style.py train --dataset </path/to/train-dataset> --s
 ```
 
 There are several command line arguments, the important ones are listed below
-* `--dataset`: path to training dataset, the path should point to a folder containing another folder with all the training images. I used COCO 2014 Training images dataset [80K/13GB] [(download)](https://cocodataset.org/#download).
+* `--dataset`: path to training dataset, the path should point to a folder containing another folder with all the training images. A smaller dataset of IDDA is used to train the model
 * `--style-image`: path to style-image.
 * `--save-model-dir`: path to folder where trained model will be saved.
 * `--cuda`: set it to 1 for running on GPU, 0 for CPU.
@@ -38,7 +38,7 @@ Refer to ``neural_style/neural_style.py`` for other command line arguments. For 
 
 ## Models
 
-Models for the examples shown below can be downloaded from [here](https://www.dropbox.com/s/lrvwfehqdcxoza8/saved_models.zip?dl=0) or by running the script ``download_saved_models.py``.
+Model are store in the folder [models](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/StyleSwap%20code/models)
 
 <div align='center'>
   <img src='images/content-images/amber.jpg' height="174px">		
