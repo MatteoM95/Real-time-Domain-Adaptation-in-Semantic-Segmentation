@@ -38,7 +38,8 @@ Refer to ``neural_style/neural_style.py`` for other command line arguments. For 
 
 ## Models
 
-Model are store in the folder [models](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/StyleSwap%20code/models)
+Model are store in the folder [models](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/StyleSwap%20code/models).
+
 All the model are trained tuning the `--style-weight` and `--content-weight`. The images are cropped to 256 pixel per square adding `--image-size 256`:
 
 ```bash
