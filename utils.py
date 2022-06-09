@@ -1,12 +1,12 @@
-import torch.nn as nn
-import torch
-from torch.nn import functional as F
-from PIL import Image
+import numbers
+import random
 import numpy as np
 import pandas as pd
-import random
-import numbers
+import torch
+import torch.nn as nn
 import torchvision
+from PIL import Image
+from scipy import ndimage
 
 # color coding of semantic classes
 palette = [119, 11, 32,  # 0 - bicycle
@@ -36,9 +36,6 @@ def poly_lr_scheduler(optimizer, init_lr, iter, lr_decay_iter=1,
 		:param power is a polymomial power
 
 	"""
-    # if iter % lr_decay_iter or iter > max_iter:
-    # 	return optimizer
-
     lr = init_lr * (1 - iter / max_iter) ** power
     optimizer.param_groups[0]['lr'] = lr
     return lr
@@ -46,7 +43,6 @@ def poly_lr_scheduler(optimizer, init_lr, iter, lr_decay_iter=1,
 
 def adjust_learning_rate(optimizer, init_lr, iter, lr_decay_iter=1, max_iter=300, power=0.9):
     lr = init_lr * (1 - iter / max_iter) ** power
-    # lr = lr_poly(args.learning_rate_D, i_iter, args.num_steps, args.power)
     optimizer.param_groups[0]['lr'] = lr
     if len(optimizer.param_groups) > 1:
         optimizer.param_groups[1]['lr'] = lr * 10
@@ -68,13 +64,6 @@ def get_label_info(csv_path):
 
 
 def get_label_info_IDDA(json_path):
-    """
-    {0:[name, [r,g,b]],
-    ...
-    10:[name, [r,g,b]]}
-
-    """
-    # camvid_dict = {}
     ann = pd.read_json(json_path)
     label = []
     for iter, row in ann.iterrows():
@@ -82,20 +71,6 @@ def get_label_info_IDDA(json_path):
         label.append(row["label2camvid"][1])
 
     return label
-
-
-def one_hot_it(label, label_info):
-    # return semantic_map -> [H, W]
-    semantic_map = np.zeros(label.shape[:-1])
-    for index, info in enumerate(label_info):
-        color = label_info[info]
-        # colour_map = np.full((label.shape[0], label.shape[1], label.shape[2]), colour, dtype=int)
-        equality = np.equal(label, color)
-        class_map = np.all(equality, axis=-1)
-        semantic_map[class_map] = index
-    # semantic_map.append(class_map)
-    # semantic_map = np.stack(semantic_map, axis=-1)
-    return semantic_map
 
 
 def one_hot_it_v11(label, label_info):
@@ -107,10 +82,9 @@ def one_hot_it_v11(label, label_info):
         color = label_info[info][:3]
         class_11 = label_info[info][3]
         if class_11 == 1:
-            # colour_map = np.full((label.shape[0], label.shape[1], label.shape[2]), colour, dtype=int)
             equality = np.equal(label, color)
             class_map = np.all(equality, axis=-1)
-            # semantic_map[class_map] = index
+
             semantic_map[class_map] = class_index
             class_index += 1
         else:
@@ -128,10 +102,9 @@ def one_hot_it_v11_dice(label, label_info):
         color = label_info[info][:3]
         class_11 = label_info[info][3]
         if class_11 == 1:
-            # colour_map = np.full((label.shape[0], label.shape[1], label.shape[2]), colour, dtype=int)
             equality = np.equal(label, color)
             class_map = np.all(equality, axis=-1)
-            # semantic_map[class_map] = index
+
             semantic_map.append(class_map)
         else:
             equality = np.equal(label, color)
@@ -160,7 +133,6 @@ def one_hot_it_v11_IDDA(label, label_info):
 def one_hot_it_v11_dice_IDDA(label, label_info):
     shape = label.shape[:2] + (12,)
     semantic_map = np.zeros(shape)
-    # void = np.zeros(label.shape[:2])
 
     for x, y in np.ndindex(label.shape[:2]):
         c = label[x][y][0]
@@ -187,14 +159,6 @@ def reverse_one_hot(image):
 		with a depth size of 1, where each pixel value is the classified
 		class key.
 	"""
-    # w = image.shape[0]
-    # h = image.shape[1]
-    # x = np.zeros([w,h,1])
-
-    # for i in range(0, w):
-    #     for j in range(0, h):
-    #         index, value = max(enumerate(image[i, j, :]), key=operator.itemgetter(1))
-    #         x[i, j] = index
     image = image.permute(1, 2, 0)
     x = torch.argmax(image, dim=-1)
     return x
@@ -205,33 +169,6 @@ def colorize_mask(mask):
     new_mask = Image.fromarray(mask.astype(np.uint8)).convert('P')
     new_mask.putpalette(palette)
     return new_mask
-
-
-def colour_code_segmentation(image, label_values):
-    """
-    Given a 1-channel array of class keys, colour code the segmentation results.
-
-    # Arguments
-        image: single channel array where each value represents the class key.
-        label_values
-
-    # Returns
-        Colour coded image for segmentation visualization
-    """
-
-    # w = image.shape[0]
-    # h = image.shape[1]
-    # x = np.zeros([w,h,3])
-    # colour_codes = label_values
-    # for i in range(0, w):
-    #     for j in range(0, h):
-    #         x[i, j, :] = colour_codes[int(image[i, j])]
-    label_values = [label_values[key][:3] for key in label_values if label_values[key][3] == 1]
-    label_values.append([0, 0, 0])
-    colour_codes = np.array(label_values)
-    x = colour_codes[image.astype(int)]
-
-    return x
 
 
 def compute_global_accuracy(pred, label):
@@ -343,44 +280,22 @@ def cal_miou(miou_list, csv_path):
     return miou_dict, np.mean(miou_list)
 
 
-class OHEM_CrossEntroy_Loss(nn.Module):
-    def __init__(self, threshold, keep_num):
-        super(OHEM_CrossEntroy_Loss, self).__init__()
-        self.threshold = threshold
-        self.keep_num = keep_num
-        self.loss_function = nn.CrossEntropyLoss(reduction='none')
+def augmentation(image, label, p=0.5):
+    # augment images with spatial transformation: Flip, Affine, Rotation, etc...
 
-    def forward(self, output, target):
-        loss = self.loss_function(output, target).view(-1)
-        loss, loss_index = torch.sort(loss, descending=True)
-        threshold_in_keep_num = loss[self.keep_num]
-        if threshold_in_keep_num > self.threshold:
-            loss = loss[loss > self.threshold]
-        else:
-            loss = loss[:self.keep_num]
-        return torch.mean(loss)
+    if random.random() < p:
+        image = np.flip(image, 1)
+        label = np.flip(label, 1)
+    return image, label
 
 
-def group_weight(weight_group, module, norm_layer, lr):
-    group_decay = []
-    group_no_decay = []
-    for m in module.modules():
-        if isinstance(m, nn.Linear):
-            group_decay.append(m.weight)
-            if m.bias is not None:
-                group_no_decay.append(m.bias)
-        elif isinstance(m, (nn.Conv2d, nn.Conv3d)):
-            group_decay.append(m.weight)
-            if m.bias is not None:
-                group_no_decay.append(m.bias)
-        elif isinstance(m, norm_layer) or isinstance(m, nn.GroupNorm):
-            if m.weight is not None:
-                group_no_decay.append(m.weight)
-            if m.bias is not None:
-                group_no_decay.append(m.bias)
+def augmentation_pixel(image, filename="", p=0.5):
+    # augment images with pixel intensity transformation: GaussianBlur, Multiply, etc...
+    if random.random() < p:
+        image = ndimage.gaussian_filter1d(image, 1, axis=1, mode='reflect')
 
-    assert len(list(module.parameters())) == len(group_decay) + len(
-        group_no_decay)
-    weight_group.append(dict(params=group_decay, lr=lr))
-    weight_group.append(dict(params=group_no_decay, weight_decay=.0, lr=lr))
-    return weight_group
+    # img = Image.fromarray(image.astype('uint8'), 'RGB')
+    # img.save("augmented/" + filename + "_C.png")
+    # print(f"FILENAME 2: {filename}")
+
+    return image

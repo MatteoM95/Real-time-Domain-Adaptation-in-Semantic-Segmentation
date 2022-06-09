@@ -1,21 +1,20 @@
 import argparse
-from torch.cuda.amp import GradScaler, autocast
-from torch.utils.data import Dataset
-from torch.utils.data import DataLoader
-from dataset.CamVid import CamVid
 import os
-from model.build_BiSeNet import BiSeNet
-import torch
-from tensorboardX import SummaryWriter
-import tqdm
 import numpy as np
-from utils import poly_lr_scheduler
-from utils import reverse_one_hot, compute_global_accuracy, fast_hist, \
-    per_class_iu
+import torch
+import tqdm
+from tensorboardX import SummaryWriter
+from torch.cuda.amp import GradScaler, autocast
+from torch.utils.data import DataLoader
+
+from dataset.CamVid import CamVid
 from loss import DiceLoss
+from model.build_BiSeNet import BiSeNet
+from utils import poly_lr_scheduler
+from utils import reverse_one_hot, compute_global_accuracy, fast_hist, per_class_iu
 
 
-def val(args, model, dataloader):
+def val(args, model, dataloader, csv_path):
     print("\n", "=" * 100, sep="")
     print('Start val!')
     # label_info = get_label_info(csv_path)
@@ -44,9 +43,6 @@ def val(args, model, dataloader):
             precision = compute_global_accuracy(predict, label)
             hist += fast_hist(label.flatten(), predict.flatten(), args.num_classes)
 
-            # there is no need to transform the one-hot array to visual RGB array
-            # predict = colour_code_segmentation(np.array(predict), label_info)
-            # label = colour_code_segmentation(np.array(label), label_info)
             precision_record.append(precision)
         precision = np.mean(precision_record)
         # miou = np.mean(per_class_iu(hist))
@@ -66,7 +62,7 @@ def val(args, model, dataloader):
         return precision, miou
 
 
-def train(args, model, optimizer, dataloader_train, dataloader_val, curr_epoch):
+def train(args, model, optimizer, dataloader_train, dataloader_val, csv_path, curr_epoch):
     writer = SummaryWriter(comment=''.format(args.optimizer, args.context_path))
     scaler = GradScaler()
 
@@ -77,7 +73,7 @@ def train(args, model, optimizer, dataloader_train, dataloader_val, curr_epoch):
     max_miou = 0
     step = 0
 
-    for epoch in range(curr_epoch, args.num_epochs):
+    for epoch in range(curr_epoch + 1, args.num_epochs + 1):
         lr = poly_lr_scheduler(optimizer, args.learning_rate, iter=epoch, max_iter=args.num_epochs)
         model.train()
 
@@ -103,9 +99,7 @@ def train(args, model, optimizer, dataloader_train, dataloader_val, curr_epoch):
 
             optimizer.zero_grad()
             scaler.scale(loss).backward()
-            # loss.backward()
             scaler.step(optimizer)
-            # optimizer.step()
             step += 1
 
             writer.add_scalar('loss_step', loss, step)
@@ -138,7 +132,7 @@ def train(args, model, optimizer, dataloader_train, dataloader_val, curr_epoch):
 
         # **** Validation model saving ****
         if epoch % args.validation_step == 0 and epoch != 0:
-            precision, miou = val(args, model, dataloader_val)
+            precision, miou = val(args, model, dataloader_val, csv_path)
             if miou > max_miou:
                 max_miou = miou
                 os.makedirs(args.save_model_path, exist_ok=True)
@@ -239,10 +233,9 @@ def main(params):
         print("*" * 100, "\n", sep="")
 
     # train
-    train(args, model, optimizer, dataloader_train, dataloader_val, curr_epoch)
+    train(args, model, optimizer, dataloader_train, dataloader_val, csv_path, curr_epoch)
 
-    # val(args, model, dataloader_val, csv_path)
-    val(args, model, dataloader_val)
+    val(args, model, dataloader_val, csv_path)
 
 
 if __name__ == '__main__':
@@ -254,11 +247,11 @@ if __name__ == '__main__':
         '--num_classes', '12',
         '--cuda', '0',
         '--batch_size', '4',
-        #'--save_model_path', './checkpoints_18_sgd_100',
+        '--save_model_path', './checkpoints_18_sgd_100',
         '--context_path', 'resnet18',  # set resnet18 or resnet101, only support resnet18 and resnet101
         '--optimizer', 'sgd',
-        #'--pretrained_model_path', './checkpoints_18_sgd_100/latest_dice_loss.pth',
+        # '--pretrained_model_path', './checkpoints_18_sgd_100/latest_dice_loss.pth',
         '--checkpoint_step', '2',
-        '--loss', 'crossentropy',
+        '--loss', 'dice',
     ]
     main(params)
