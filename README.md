@@ -35,5 +35,13 @@ Or watch the result with TensorBoardX
 %tensorboard --logdir ./runs
 ```
 
-# Project Paper :
+## Project Paper :
 Final [paper](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Report_Real%20time%20Domain%20Adaptation%20in%20Semantic%20Segmentation.pdf) of the project
+
+<a name="contributors" />
+
+### Contributors
+
+<a href="https://github.com/Gabrysse/CBS-realtimeDA-semSeg/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Gabrysse/CBS-realtimeDA-semSeg" />
+</a>
