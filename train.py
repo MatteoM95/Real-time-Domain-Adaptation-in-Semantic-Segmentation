@@ -242,7 +242,7 @@ if __name__ == '__main__':
     params = [
         '--num_epochs', '100',
         '--learning_rate', '2.5e-2',
-        '--data', '../datasets/CamVid/',
+        '--data', '../Datasets/CamVid/',
         '--num_workers', '8',
         '--num_classes', '12',
         '--cuda', '0',
