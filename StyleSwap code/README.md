@@ -41,17 +41,17 @@ Refer to ``neural_style/neural_style.py`` for other command line arguments. For 
 Model are store in the folder [models](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/StyleSwap%20code/models)
 
 <div align='center'>
-  <img src='images/content-images/amber.jpg' height="174px">		
+  <img src='images/content-images/idda.jpg' height="174px">		
 </div>
 
 <div align='center'>
-  <img src='images/style-images/mosaic.jpg' height="174px">
-  <img src='images/output-images/amber-mosaic.jpg' height="174px">
+  <img src='images/style-images/camvid7.jpg' height="174px">
+  <img src='images/output-images/camvid7.jpg' height="174px">
   <img src='images/output-images/amber-candy.jpg' height="174px">
   <img src='images/style-images/candy.jpg' height="174px">
   <br>
-  <img src='images/style-images/rain-princess-cropped.jpg' height="174px">
-  <img src='images/output-images/amber-rain-princess.jpg' height="174px">
+  <img src='images/style-images/rain-princess.jpg' height="174px">
+  <img src='images/output-images/output2.jpg' height="174px">
   <img src='images/output-images/amber-udnie.jpg' height="174px">
   <img src='images/style-images/udnie.jpg' height="174px">
 </div>
