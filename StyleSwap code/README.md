@@ -4,9 +4,9 @@ This repository contains a pytorch implementation of an algorithm for artistic s
 The original model uses the method described in [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155) along with [Instance Normalization](https://arxiv.org/pdf/1607.08022.pdf). 
 
 <p align="center">
-    <img src="images/style-images/idda.jpg" height="200px">
-    <img src="images/content-images/camvid5.jpg" height="200px">
-    <img src="images/output-images/camvid5.jpg" height="220px">
+    <img src="images/style-images/camvid5.jpg" height="200px">
+    <img src="images/content-images/idda.jpg" height="200px">
+    <img src="images/output-images/camvid5.jpg" height="200px">
 </p>
 
 ## Requirements
