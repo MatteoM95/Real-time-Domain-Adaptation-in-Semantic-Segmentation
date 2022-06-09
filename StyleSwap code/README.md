@@ -47,11 +47,13 @@ Model are store in the folder [models](https://github.com/MatteoM95/Real-time-Do
 <div align='center'>
   <img src='images/style-images/camvid7.jpg' height="174px">
   <img src='images/output-images/camvid7.jpg' height="174px">
+  <br>
   <img src='images/output-images/output5.jpg' height="174px">
   <img src='images/style-images/sketch.jpg' height="174px">
   <br>
   <img src='images/style-images/rain-princess.jpg' height="174px">
   <img src='images/output-images/output2.jpg' height="174px">
-  <img src='images/output-images/amber-udnie.jpg' height="174px">
-  <img src='images/style-images/udnie.jpg' height="174px">
+  <br>
+  <img src='images/output-images/outputSidewalk.jpg' height="174px">
+  <img src='images/style-images/sidewalk.jpg' height="174px">
 </div>
