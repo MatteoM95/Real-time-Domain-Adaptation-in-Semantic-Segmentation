@@ -3,7 +3,7 @@ This project is part of The Machine Learning & Deep Learing cource (MLDL 2021 ) 
 ## BiseNet
 Starting code for the student belonging to the project "Real-time domain adaptation in semantic segmentation" <br>
 # Implementation Details :
-- The Domain adaptation Model is based on [**BiSeNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/BiseNetv1-master) and the semantic segmentation model is based on [**AdaptSegNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/AdaptSegNet-master)
+- The Real-Time semantic segmentation Model is based on [**BiSeNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/BiseNetv1-master) and the domain adaptation model is based on [**AdaptSegNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/AdaptSegNet-master)
 - The pytorch version used is 0.4.1 and python version 3.6
 - All the experiments were run on Google Colab Tesla P100 15 GB GPUs
 
