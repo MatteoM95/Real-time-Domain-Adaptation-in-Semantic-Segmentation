@@ -1,6 +1,7 @@
 # MLDL 2021 Course
 ## BiseNet
-Starting code for the student belonging to the project "Real-time domain adaptation in semantic segmentation" <br>
+[**BiSeNet: Bilateral Segmentation Network for Real-time Semantic Segmentation**](https://arxiv.org/pdf/1808.00897.pdf)
+Starting code for the project "Real-time domain adaptation in semantic segmentation" <br>
 BiSeNet based on pytorch 0.4.1 and python 3.6
 
 ## Dataset  
