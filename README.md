@@ -93,6 +93,7 @@ For each image, the probability p to stylize a class was set to 0.5 for the whol
 - 5 different CamVid styles,
 - 5 different Texture styles,
 - 5 different CamVid styles and 5 different Texture styles.
+
 All the results are reported in the following Table II. It’s possible to see that while some runs didn’t improve the performances obtained without styling, other runs were able to significantly improve both the mIoU and pixel precision scores. In particular, the runs with multiple styles achieved better results overall. Unexpectedly, the best results were obtained by the network trained with the Camvid5 style only, which was able to reach a mIoU
 score of 34.7 and a pixel precision score of 68.7 at the end of the training.
 
