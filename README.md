@@ -44,7 +44,7 @@ the discriminator network was taken from [AdaptSegNet](https://arxiv.org/abs/180
 - Download [IDDA dataset](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Datasets/IDDA)
 - Note: classes_info.json file needs to be modified by changing the first couple of brakets '[]' to {} and deleting the last comma.
 
-## Colab Setting
+## Run the code: Colab Setting
 ```
 from google.colab import drive
 drive.mount('/content/drive')
@@ -57,6 +57,10 @@ drive.mount('/content/drive')
 ```
 !python train.py
 ```  
+or training with Class-Based Styling 
+```
+!python train_DA_CBS.py
+``` 
 
 ## Test Model
 ```
