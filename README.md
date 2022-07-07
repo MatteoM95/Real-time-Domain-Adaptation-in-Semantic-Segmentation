@@ -1,5 +1,5 @@
 # A class-based styling approach for Real-Time Doamin Adaptation in Semantic Segmentation
-This project is part of The Machine Learning & Deep Learing cource (MLDL 2021 ) , Politecnico Di Torino , Master Of Data Science & Engineering Program 
+This project is part of The Machine Learning & Deep Learing cource (MLDL 2021) , Politecnico Di Torino , Master Of Data Science & Engineering Program. The project was supervised
 
 # Implementation Details :
 - The Real-Time semantic segmentation Model is based on [**BiSeNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/BiseNetv1-master) and the domain adaptation model is based on [**AdaptSegNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/AdaptSegNet-master)
@@ -26,7 +26,7 @@ Several style models were trained (see Fig. 2), and they can be divided into two
 - Texture styles: these models were trained on different images and textures that are not easily seen on a street. These models were used to prevent the segmentation network to overfit on the synthetic textures.
 
 
-![Fig. 2](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Images/style_recap.jpg)
+![Fig. 2](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Images/style_recap.jpg "Fig. 2")
 
 
 The proposed class-based styling algorithm is very similar to the CBS algorithm, and works as follows. For each run, a set of style models I<sub>s</sub> is used. Consider an image I<sub>s</sub> , extracted from the source set X<sub>s</sub>, and its ground-truth segmentation maps Y<sub>s</sub>. Then,
