@@ -67,8 +67,12 @@ Or watch the result with TensorBoardX
 %tensorboard --logdir ./runs
 ```
 
-## Project Paper :
-Final [paper](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Report_Real%20time%20Domain%20Adaptation%20in%20Semantic%20Segmentation.pdf) of the project
+## Conclusion Discussion
+With the proposed expansion, we were able to improve the baseline results achieved by the network used in the second step of our experiment. We believe that there is still room for improvements. For example, it could be interesting to perform a finetuning of the styles based on the single class IoU scores and use the best styles for each specific class. In particular, the runs that used mixed styles achieved improved results, but still underperformed while predicting harder classes such as the bicycle class where single styles achieved better results.
+Another aspect that needs to be taken into account is the consistency and reproducibility of the results. In the described runs, only a random subset of the source dataset was used to train the network in each epoch. Furthermore, the proposed expansion includes stochastic features such as the style model
+being and the stylized class subset being selected randomly for each image. It could be interesting to reproduce the experiments and train the network with the entire source dataset.
+
+The [paper](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Report_Real%20time%20Domain%20Adaptation%20in%20Semantic%20Segmentation.pdf) of the project is available in this repository
 
 <a name="contributors" />
 
