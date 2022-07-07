@@ -25,7 +25,9 @@ Several style models were trained (see Fig. 2), and they can be divided into two
 - CamVid styles: these models were trained on images taken from the CamVid dataset. These models were used to change the synthetic textures and make the segmentation network more familiar with the target images colors.
 - Texture styles: these models were trained on different images and textures that are not easily seen on a street. These models were used to prevent the segmentation network to overfit on the synthetic textures.
 
+
 ![Fig. 2](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Images/style_recap.jpg)
+
 
 The proposed class-based styling algorithm is very similar to the CBS algorithm, and works as follows. For each run, a set of style models I<sub>s</sub> is used. Consider an image I<sub>s</sub> , extracted from the source set X<sub>s</sub>, and its ground-truth segmentation maps Y<sub>s</sub>. Then,
 given a style set T , we randomly select a style *t*. We also randomly select a subset of source semantic classes where each
