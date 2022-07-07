@@ -1,5 +1,5 @@
 # A class-based styling approach for Real-Time Doamin Adaptation in Semantic Segmentation
-This project is part of The Machine Learning & Deep Learing cource (MLDL 2021) , Politecnico Di Torino , Master Of Data Science & Engineering Program. The project was supervised
+This project is part of The Machine Learning & Deep Learing cource (MLDL 2021) , Politecnico Di Torino , Master Of Data Science & Engineering Program. The project was supervised by prof. Barbara Caputo and prof. Antonio Tavera. 
 
 # Implementation Details :
 - The Real-Time semantic segmentation Model is based on [**BiSeNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/BiseNetv1-master) and the domain adaptation model is based on [**AdaptSegNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/AdaptSegNet-master)
