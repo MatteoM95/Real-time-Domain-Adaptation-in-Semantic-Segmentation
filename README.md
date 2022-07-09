@@ -10,6 +10,7 @@ This project is part of The Machine Learning & Deep Learing cource (MLDL 2021) ,
 Inside the red rectangle we have the Fast Neural Style network. The training can be done in two ways: 
 1. foresees the training on the whole IDDA in order to create a model with the target domain image style that is a CamVid image
 2. foresees the training on the whole IDDA in order to create a model with the texture image style. 
+
 On the other hand, in the green rectangle, we have the domain adversarial network. Given the image and the corresponding ground-truth label from the source domain, we forward them to the class-based style transfer algorithm that uses the model obtained from the Fast Neural Style network in order to stylize one or more random classes. Then we pass the stylized image, along with the target domain image, to the segmentation network to obtain output predictions. On the source prediction, a segmentation loss is computed based on the ground truth. To make target predictions closer to the source ones, we utilize a discriminator to distinguish whether the input is from source or target domain. Then an adversarial loss is calculated on the target prediction and is back-propagated to the segmentation network.
 
 ![Network Architecture](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Images/architecture.jpg "architecture" )
