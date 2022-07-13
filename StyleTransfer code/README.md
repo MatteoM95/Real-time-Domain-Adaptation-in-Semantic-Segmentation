@@ -9,8 +9,17 @@ The original model uses the method described in [Perceptual Losses for Real-Time
     <img src="images/output-images/camvid5.jpg" height="200px">
 </p>
 
+### Contents
+- [Requirements](#Requirements)
+- [Usage](#Usage)
+- [Models](#Models)
+
+<a name="Requirements"/>
+
 ## Requirements
 The program is written in Python, and uses [pytorch](http://pytorch.org/), [scipy](https://www.scipy.org). A GPU is not necessary, but can provide a significant speed up especially for training a new model. Regular sized images can be styled on a laptop or desktop using saved models.
+
+<a name="Usage"/>
 
 ## Usage
 **Stylize image**
@@ -35,6 +44,8 @@ There are several command line arguments, the important ones are listed below
 * `--cuda`: set it to 1 for running on GPU, 0 for CPU.
 
 Refer to ``neural_style/neural_style.py`` for other command line arguments. For training new models you might have to tune the values of `--content-weight` and `--style-weight`. The mosaic style model shown above was trained with `--content-weight 1e5` and `--style-weight 1e10`. The remaining 3 models were also trained with similar order of weight parameters with slight variation in the `--style-weight` (`5e10` or `1e11`).
+
+<a name="Models"/>
 
 ## Models
 
