@@ -1,10 +1,27 @@
 # A class-based styling approach for Real-Time Doamin Adaptation in Semantic Segmentation
 This project is part of The Machine Learning & Deep Learing cource (MLDL 2021) , Politecnico Di Torino , Master Of Data Science & Engineering Program. The project was supervised by prof. Barbara Caputo and prof. Antonio Tavera. 
 
-# Code Implementation Details:
+### Contents
+- [Code Implementation](#Codeimplementation)
+- [Architecture overview](#Architecture)
+- [Segmentation Network: BiSeNet](#BiSeNet)
+- [Class-Based Styling (CBS)](#CBS)
+- [Discriminator: AdaptSegNet](#AdaptSegNet)
+- [Dataset](#Dataset)
+- [Run the code](#Run)
+- [Results](#Results)
+- [Final Discussion](#Discussion)
+- [Contributors](#contributors)
+
+
+<a name="Codeimplementation"/>
+
+## Code Implementation Details:
 - The Real-Time semantic segmentation Model is based on [**BiSeNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/BiseNetv1-master) and the domain adaptation model is based on [**AdaptSegNet**](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Master%20code%20original/AdaptSegNet-master)
 - The pytorch version used is 0.4.1 and python version 3.6
 - All the experiments were run on Google Colab Tesla P100 15 GB GPUs
+
+<a name="Architecture"/>
 
 ## Architecture overview
 Inside the red rectangle we have the Fast Neural Style network. The training can be done in two ways: 
@@ -15,6 +32,8 @@ On the other hand, in the green rectangle, we have the domain adversarial networ
 
 ![Network Architecture](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Images/architecture.jpg "architecture" )
 
+<a name="BiSeNet"/>
+
 ## Segmentation Network: BiSeNet
 For the segmentation network, we adopt [BiSeNet](https://arxiv.org/abs/1808.00897?context=cs) (Bilateral Segmentation Network) that
 is a state-of-the-art approach to Real-time Semantic Segmentation. With this network we have the possibility to choose between ResNet-18 or ResNet-101 as our segmentation baseline model.
@@ -22,6 +41,8 @@ BiSeNet is composed by two main components: Spatial Path (SP) and Context Path (
 The aim of the spacial path is to encode significant spatial information by preserving the spatial information contained in the original input image. This component is composed by three convolution layers with stride = 2, followed by a batch normalization and a ReLU.
 On the other hand, context path is used to obtain a large receptive field using a light-weight model and global average pooling. To better refine the features at each stage an Attention refinement module (ARM) is used.
 The output of these two components could be simply summed up together. But to combine features efficiently a specific module called Feature Fusion Module (FFM) is introduced.
+
+<a name="CBS"/>
 
 ## Class-Based Styling (CBS)
 Our proposed expansion to the previously described architecture was inspired by the styling technique used by [Kim & Byun](https://arxiv.org/abs/2003.00867), and also to the real-time Class-Based Styling (CBS) method displayed by [Kurzman et al.](https://arxiv.org/abs/1908.11525) . When training a segmentation network on a synthetic dataset, it’s always possible for the network to overfit on specific textures, especially when they are repeatedly used in different images. Using a neural style transfer algorithm is useful to diversify the textures and improve the final performances. The stylized datasets were prepared beforehand using the [StyleSwap](https://www.arxiv-vanity.com/papers/1612.04337/) algorithm, which cannot be used in a real-time setting. Instead, we exploited the style-transfer algorithm used in CBS to stylize specific classes in a live video. This algorithm was introduced by [Johnson et al.](https://arxiv.org/abs/1603.08155) in 2016, and it’s able to train a model to translate images to different styles in real-time. We introduced the style-transfer step in our architecture as a data augmentation step. Every time an image is taken from the source dataset, a style model is selected and is applied to stylize the image.
@@ -40,15 +61,21 @@ class has a probability *p* of being selected. *p* can change or remain constant
 used in our runs is better explained in section IV.
 After this initial step, the whole image is stylized using the style *t*. Then a mask is created based on Y<sub>s</sub> , and is used to identify the selected classes that will be stylized from the others. The resulting image consists of the original image in background, and all the stylized classes in foreground.
 
+<a name="AdaptSegNet"/>
+
 ## Discriminator: AdaptSegNet
 the discriminator network was taken from [AdaptSegNet](https://arxiv.org/abs/1802.10349), and consists of 5 convolutional layers with kernel
 4 × 4, stride 2 and channel numbers {64, 128, 256, 512, 1}. Each convolutional layer (with the exception of the last layer) is followed by a Leaky ReLU parametrized by 0.2.
+
+<a name="Dataset"/>
 
 ## Dataset  
 - Download [CamVid dataset](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Datasets/CamVid)
 - Download [IDDA dataset](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Datasets/IDDA)
 
 Note: classes_info.json file needs to be modified by changing the first couple of brakets '[]' to {} and deleting the last comma.
+
+<a name="Run"/>
 
 ## Run the code: Colab Setting
 ```
@@ -77,6 +104,8 @@ Or watch the result with TensorBoardX
 %tensorboard --logdir ./runs
 ```
 
+<a name="Results"/>
+
 ## Results
 In the first step of the `Segmentation Network Tuning`, we exploited the BiSeNet network to perform semantic segmentation on the CamVid dataset. The network was trained with two different backbones, ResNet-18 and ResNet-101, and their performances at 50 and 100 epochs were compared in order to find the best configuration and get an upper bound for the next steps results. The dice loss was used in all these trainings. The results of this experiment are presented in the first part of Table. It’s possible to see that training the network for 100 epochs seems to yield better results than training it for 50 epochs, while there is no
 significant difference between using ResNet-18 and ResNet-101 as the backbone. After the first results were obtained, the network was trained
@@ -103,6 +132,8 @@ All the results are reported in the following Table II. It’s possible to see t
 score of 34.7 and a pixel precision score of 68.7 at the end of the training.
 
 ![Table II](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Images/TableII.png "Table II")
+
+<a name="Discussion"/>
 
 ## Final Discussion
 With the proposed expansion, we were able to improve the baseline results achieved by the network used in the second step of our experiment. We believe that there is still room for improvements. For example, it could be interesting to perform a finetuning of the styles based on the single class IoU scores and use the best styles for each specific class. In particular, the runs that used mixed styles achieved improved results, but still underperformed while predicting harder classes such as the bicycle class where single styles achieved better results.
