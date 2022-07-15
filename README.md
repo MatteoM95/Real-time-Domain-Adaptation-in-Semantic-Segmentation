@@ -1,4 +1,4 @@
-# A class-based styling approach for Real-Time Doamin Adaptation in Semantic Segmentation
+# A class-based styling approach for Real-Time Domain Adaptation in Semantic Segmentation
 This project is part of The Machine Learning & Deep Learing cource (MLDL 2021) , Politecnico Di Torino , Master Of Data Science & Engineering Program. The project was supervised by prof. Barbara Caputo and prof. Antonio Tavera. 
 
 ### Contents
