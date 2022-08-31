@@ -73,7 +73,7 @@ the discriminator network was taken from [AdaptSegNet](https://arxiv.org/abs/180
 - Download [CamVid dataset](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Datasets/CamVid)
 - Download [IDDA dataset](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/tree/MatteoBranch/Datasets/IDDA)
 
-Note: classes_info.json file needs to be modified by changing the first couple of brakets '[]' to {} and deleting the last comma.
+**Note**: classes_info.json file needs to be modified by changing the first couple of brakets '[]' to {} and deleting the last comma.
 
 <a name="Run"/>
 
