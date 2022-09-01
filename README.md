@@ -140,7 +140,7 @@ With the proposed expansion, we were able to improve the baseline results achiev
 Another aspect that needs to be taken into account is the consistency and reproducibility of the results. In the described runs, only a random subset of the source dataset was used to train the network in each epoch. Furthermore, the proposed expansion includes stochastic features such as the style model
 being and the stylized class subset being selected randomly for each image. It could be interesting to reproduce the experiments and train the network with the entire source dataset.
 
-The [paper](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Report_Real%20time%20Domain%20Adaptation%20in%20Semantic%20Segmentation.pdf) of the project is freely available
+The [paper](https://github.com/MatteoM95/Real-time-Domain-Adaptation-in-Semantic-Segmentation/blob/MatteoBranch/Documentation/Report_Real%20time%20Domain%20Adaptation%20in%20Semantic%20Segmentation.pdf) of the project is freely available
 
 <a name="contributors" />
 
